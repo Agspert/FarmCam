@@ -28,7 +28,11 @@
       "spaced-comment": "error",
       "quotes": ["error", "double"],
       "no-duplicate-imports": "error",
-      "no-unused-vars": "warn"
+      "no-unused-vars": "warn",
+      "semi": "off",
+      "@typescript-eslint/ban-types": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "off"
     },
     "settings": {
       "import/resolver": {
