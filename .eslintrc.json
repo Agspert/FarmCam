@@ -5,9 +5,8 @@
         "jest": true
     },
     "extends": [
-        // "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        // "plugin:react/recommended",
+        "eslint:recommended",
+        "plugin:react/recommended",
         "prettier"
     ],
     // "parser": "@typescript-eslint/parser",
@@ -29,14 +28,11 @@
       "quotes": ["error", "double"],
       "no-duplicate-imports": "error",
       "no-unused-vars": "warn",
-      "semi": "off",
-      "@typescript-eslint/ban-types": "off",
-      "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-explicit-any": "off"
+      "semi": "off"
     },
-    "settings": {
-      "import/resolver": {
-        "typescript": {}
-      }
-    }
+    // "settings": {
+    //   "import/resolver": {
+    //     "typescript": {}
+    //   }
+    // }
 }

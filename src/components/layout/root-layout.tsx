@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 
-type Props = {
-  children: ReactNode;
-};
+interface RootLayoutProps {
+  children : ReactNode
+}
 
-const RootLayout = ({ children }: Props) => {
+const RootLayout = ( props: any ) => {
   return (
-    <div className=" flex flex-col min-h-screen w-screen ">{children}</div>
+    <div className=" flex flex-col min-h-screen w-screen ">{props.children}</div>
   );
 };
 
