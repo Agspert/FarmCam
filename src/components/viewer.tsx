@@ -82,6 +82,18 @@ const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
     renderer.render(bgScene, camera);
   };
 
+  window.addEventListener("resize", () => {
+   let width = window.innerWidth
+   let height = window.innerHeight
+   // update camera aspect
+   camera.aspect = width / height
+   camera.updateProjectionMatrix()
+   // update renderer
+   renderer.setSize(width, height)
+   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+   renderer.render(scene, camera)
+  })
+
   animate();
 };
 
