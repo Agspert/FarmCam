@@ -103,7 +103,7 @@ export default function THREECanvas() {
   const threeDivRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (node !== null && !initialized) {
-        initThreeJSScene(node, "./farm3.jpg");
+        initThreeJSScene(node, "./farm2.jpg");
         setInitialized(true);
       }
     },
