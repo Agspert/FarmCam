@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // export const width = window.innerWidth
 // export const height = window.innerHeight
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
   const renderer = new THREE.WebGLRenderer();
@@ -65,6 +65,7 @@ const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
     const height = canvas.clientHeight;
     const needResize = canvas.width !== width || canvas.height !== height;
     if (needResize) {
+      // renderer.setSize(canvas.width, canvas.height, false);
       renderer.setSize(window.innerWidth, window.innerHeight, false);
     }
     return needResize;
@@ -72,7 +73,7 @@ const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
-    // camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
   }
 
