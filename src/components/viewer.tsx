@@ -15,10 +15,10 @@ const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
   const near = 0.1;
   const far = 100;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.z = 3;
+  camera.position.z = -30;
 
   const controls = new OrbitControls(camera, node); //
-  controls.target.set(0, 0, 0);
+  controls.target.set(-10, 0, 0);
   controls.update();
 
   const scene = new THREE.Scene();
