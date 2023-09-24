@@ -28,6 +28,7 @@
       "no-unused-vars": "warn",
       "no-undef": "off",
       "semi": "off",
-      "no-unknown-property": "off"
+      // "no-unknown-property": "off"
+      "react/no-unknown-property": "off"
     }
 }
