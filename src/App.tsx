@@ -50,11 +50,11 @@ function App() {
       onClick={() => setDomTouched(true)}
     >
       <THREECanvas />
-      <div className="absolute bottom right-2">
+      <div className="absolute bottom right-2 z-50">
         {/* <Model /> */}
         <FBXModel />
       </div>
-      <div className="absolute top-[50%] right-4 flex flex-col gap-2">
+      <div className="absolute top-[50%] right-4 flex flex-col gap-2 z-50">
         <RWebShare
           data={{
             text: "this is dummy text",
