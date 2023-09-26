@@ -84,16 +84,16 @@ const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
   };
 
   window.addEventListener("resize", () => {
-   let width = window.innerWidth
-   let height = window.innerHeight
-   // update camera aspect
-   camera.aspect = width / height
-   camera.updateProjectionMatrix()
-   // update renderer
-   renderer.setSize(width, height)
-   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-   renderer.render(scene, camera)
-  })
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    // update camera aspect
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    // update renderer
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.render(scene, camera);
+  });
 
   animate();
 };
@@ -111,5 +111,5 @@ export default function THREECanvas() {
     [initialized],
   );
 
-  return <div className="flex h-screen" ref={threeDivRef}></div>;
+  return <div className="flex h-screen z-10" ref={threeDivRef}></div>;
 }
