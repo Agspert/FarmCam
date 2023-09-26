@@ -80,8 +80,9 @@ function App() {
       </div>
       <div
         style={{ width: width }}
-        className="absolute bottom-0 border-2 border-red-600"
-      ></div>
+        className="absolute bottom-5 border-2 border-red-600"
+      >
+      </div>
     </div>
   );
 }
