@@ -7,7 +7,7 @@ import THREECanvas from "@/components/viewer";
 import Model from "@//components/model";
 import { RWebShare } from "react-web-share";
 
-import { SendHorizonal, MapPin } from "lucide-react";
+import { SendHorizonal, MapPin, Volume2, VolumeX, Play, Pause } from "lucide-react";
 import { Button, buttonVariants } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { useEffect, useRef, useState } from "react";
@@ -22,11 +22,13 @@ function App() {
   const [seconds, setSeconds] = useState(1);
   const [width, setWidth] = useState("0px");
 
+  const [paused, setPaused] = useState<boolean>(false)
   const [caption, setCaption] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     let interval: any;
     if (domTouched) {
+      console.log("in if")
       audio.play();
       interval = setInterval(() => {
         setSeconds((prev) => prev + 1);
@@ -296,19 +298,26 @@ function App() {
     if (text && text.text) {
       setCaption(text.text);
     }
-    console.log("text", text?.text);
-    console.log("audio current time", audio.currentTime);
   }, [audio.currentTime]);
 
   useEffect(() => {
-    if (seconds <= audio.duration) {
+    // if (seconds <= audio.duration) {
       const chuncks = Math.ceil(window.innerWidth / audio.duration);
-      let width = chuncks * seconds;
+      let width = chuncks * Math.ceil(audio.currentTime);
       width = width > window.innerWidth ? window.innerWidth : width;
-      console.log(width);
       setWidth(`${width}px`);
+    // }
+  }, [audio.currentTime]);
+
+  const handleClick = () => {
+    if(paused){
+      audio.play();
+      setPaused(false)
+    } else {
+      audio.pause()
+      setPaused(true)
     }
-  }, [seconds]);
+  }
 
   return (
     <div
@@ -343,12 +352,19 @@ function App() {
         >
           <MapPin className="text-black" />
         </a>
+        <Button size="icon" className="rounded-full bg-slate-100" onClick={handleClick} >
+          {paused ? 
+          <Play className="w-4 h-4 text-black" />
+          :
+          <Pause className="w-4 h-4 text-black" /> 
+        }
+          </Button>
       </div>
       <div
         style={{ width: width }}
         className="absolute top-0 border-2 border-red-600 z-50"
       ></div>
-      <p className="absolute bottom-24 w-full text-black font-semibold text-2xl z-40 bg-gray-200">
+      <p className="absolute top-[50%] text-yellow-500 font-semibold text-2xl rounded-sm z-40 bg-slate-200 px-2 backdrop-blur-sm">
         {caption}
       </p>
     </div>
