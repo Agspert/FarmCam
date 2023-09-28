@@ -321,7 +321,7 @@ function App() {
 
   return (
     <div
-      className="flex flex-col min-h-screen w-screen relative"
+      className="flex flex-col overflow-hidden min-h-screen w-screen relative"
       onClick={() => setDomTouched(true)}
     >
       <THREECanvas />
@@ -329,7 +329,7 @@ function App() {
         <Model />
         <FBXModel />
       </div> */}
-      <div className="absolute top-[50%] right-4 flex flex-col gap-2 z-50">
+      <div className="absolute top-[50%] translate-y-[-50%] right-4 flex flex-col gap-2 z-50">
         <RWebShare
           data={{
             text: "this is dummy text",
