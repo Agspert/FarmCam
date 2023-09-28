@@ -364,7 +364,7 @@ function App() {
         style={{ width: width }}
         className="absolute top-0 border-2 border-red-600 z-50"
       ></div>
-      <p className="absolute bottom-12 text-black font-semibold text-2xl rounded-sm z-40 bg-yellow-600 px-2 backdrop-blur-sm">
+      <p className="absolute left-[50%] translate-x-[-50%] bottom-12 text-black font-semibold text-2xl rounded-sm z-40 bg-yellow-600 px-2 backdrop-blur-sm">
         {caption}
       </p>
     </div>
