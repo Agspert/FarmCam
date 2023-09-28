@@ -325,10 +325,10 @@ function App() {
       onClick={() => setDomTouched(true)}
     >
       <THREECanvas />
-      <div className="absolute bottom right-2 z-50">
-        {/* <Model /> */}
+      {/* <div className="absolute bottom right-2 z-50">
+        <Model />
         <FBXModel />
-      </div>
+      </div> */}
       <div className="absolute top-[50%] right-4 flex flex-col gap-2 z-50">
         <RWebShare
           data={{
@@ -364,7 +364,7 @@ function App() {
         style={{ width: width }}
         className="absolute top-0 border-2 border-red-600 z-50"
       ></div>
-      <p className="absolute top-[50%] text-yellow-500 font-semibold text-2xl rounded-sm z-40 bg-slate-200 px-2 backdrop-blur-sm">
+      <p className="absolute bottom-4 text-black font-semibold text-2xl rounded-sm z-40 bg-yellow-600 px-2 backdrop-blur-sm">
         {caption}
       </p>
     </div>
