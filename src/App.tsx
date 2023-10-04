@@ -7,25 +7,20 @@ import THREECanvas from "@/components/viewer";
 import Model from "@//components/model";
 import { RWebShare } from "react-web-share";
 
-import {
-  SendHorizonal,
-  MapPin,
-  Play,
-  Pause,
-} from "lucide-react";
+import { SendHorizonal, MapPin, Play, Pause, Power } from "lucide-react";
 import { Button, buttonVariants } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { useEffect, useRef, useState } from "react";
 function App() {
-  const lat = 27.629683;
-  const lon = 78.106681;
+  const lat = 27.6168384;
+  const lon = 78.0991674;
 
   const [domTouched, setDomTouched] = useState(false);
   const [audio] = useState(() => new Audio("./main.mp3"));
   const [progress, setProgress] = useState("0");
   const [seconds, setSeconds] = useState(1);
   const [width, setWidth] = useState("0px");
-
+  const [url, setUrl] = useState("./Street.jpg")
   const [paused, setPaused] = useState<boolean>(false);
   const [caption, setCaption] = useState<string | undefined>(undefined);
 
@@ -130,7 +125,7 @@ function App() {
       className="flex flex-col overflow-hidden min-h-screen w-screen relative"
       onClick={() => setDomTouched(true)}
     >
-      <THREECanvas />
+      <THREECanvas url={url} />
       {/* <div className="absolute bottom right-2 z-50">
         <Model />
         <FBXModel />
@@ -169,6 +164,9 @@ function App() {
             <Pause className="w-4 h-4 text-black" />
           )}
         </Button>
+        <Button size="icon"
+          className="rounded-full bg-slate-100"
+          onClick={() => setUrl(prev => prev === "./farm2.jpg" ? "./Street.jpg" : "./farm2.jpg")}><Power className="w-4 h-4 text-black" /></Button>
       </div>
       <div
         style={{ width: width }}

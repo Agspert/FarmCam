@@ -4,6 +4,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // export const height = window.innerHeight
 import { useCallback, useEffect, useState } from "react";
 
+type CanvasProps = {
+  url: string;
+};
+
 const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
   const renderer = new THREE.WebGLRenderer();
   renderer.autoClearColor = false;
@@ -98,17 +102,15 @@ const initThreeJSScene = (node: HTMLDivElement, url?: string) => {
   animate();
 };
 
-export default function THREECanvas() {
-  const [initialized, setInitialized] = useState(false);
+export default function THREECanvas({ url }: CanvasProps) {
 
   const threeDivRef = useCallback(
     (node: HTMLDivElement | null) => {
-      if (node !== null && !initialized) {
-        initThreeJSScene(node, "./Street.jpg");
-        setInitialized(true);
+      if (node !== null) {
+        initThreeJSScene(node, url);
       }
     },
-    [initialized],
+    [url],
   );
 
   return <div className="flex h-screen z-10" ref={threeDivRef}></div>;
