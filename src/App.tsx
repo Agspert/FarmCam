@@ -6,11 +6,15 @@ import RootLayout from "@/components/layout/root-layout";
 import THREECanvas from "@/components/viewer";
 import Model from "@//components/model";
 import { RWebShare } from "react-web-share";
-
+import ReactiveScene from "@/components/reactiveScene";
 import { SendHorizonal, MapPin, Play, Pause, Power } from "lucide-react";
 import { Button, buttonVariants } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { useEffect, useRef, useState } from "react";
+import ProgressBar from "./components/ProgressBar";
+import Captions from "./components/captions";
+import VideoPlayer from "./components/VrPlayer";
+
 function App() {
   const lat = 27.6168384;
   const lon = 78.0991674;
@@ -23,15 +27,21 @@ function App() {
   const [url, setUrl] = useState("./Street.jpg")
   const [paused, setPaused] = useState<boolean>(false);
   const [caption, setCaption] = useState<string | undefined>(undefined);
+  const divRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     let interval: any;
     if (domTouched) {
       console.log("in if");
       audio.play();
-      interval = setInterval(() => {
-        setSeconds((prev) => prev + 1);
-      }, 1000);
+      const handle = () => {
+        console.log("me")
+      }
+      
+      audio.addEventListener("timeupdate", handle)
+      // interval = setInterval(() => {
+      //   setSeconds((prev) => prev + 1);
+      // }, 1000);
     }
     return () => clearInterval(interval);
   }, [domTouched]);
@@ -87,6 +97,7 @@ function App() {
     },
   ];
 
+  // updating captions
   useEffect(() => {
     const text = dd.find((segment) => {
       if (
@@ -97,18 +108,22 @@ function App() {
       }
     });
     if (text && text.text) {
+      console.log("setting up captions")
       setCaption(text.text);
     }
   }, [audio.currentTime]);
 
   useEffect(() => {
+    console.log("currenttime effect")
     // if (seconds <= audio.duration) {
     const chuncks = Math.ceil(window.innerWidth / audio.duration);
     let width = chuncks * Math.ceil(audio.currentTime);
     width = width > window.innerWidth ? window.innerWidth : width;
     setWidth(`${width}px`);
+
     // }
   }, [audio.currentTime]);
+  console.log("audio.currentTime", audio.currentTime)
 
   const handleClick = () => {
     if (paused) {
@@ -120,16 +135,55 @@ function App() {
     }
   };
 
+  // const handleTimeUpdate = () => {
+  //   console.log("handletimeupdate");
+  //   if (audioRef.current) {
+  //     console.log("currenttime effect");
+  //     // if (seconds <= audio.duration) {
+  //     const chuncks = Math.ceil(window.innerWidth / audioRef.current.duration);
+  //     let width = chuncks * Math.ceil(audioRef.current.currentTime);
+  //     width = width > window.innerWidth ? window.innerWidth : width;
+  //     setWidth(`${width}px`);
+  //     console.log(audioRef.current.currentTime);
+  //     // setCurrentTime(audioRef.current.currentTime);
+  //   }
+
+    // if(audioRef.current && audioRef.current.currentTime){
+    //   const currentTime = audioRef.current.currentTime
+
+    //   const text = dd.find((segment) => {
+    //     if (
+    //       segment.startTime < currentTime &&
+    //       segment.endTime >= currentTime
+    //       ) {
+    //         return segment;
+    //       }
+    //     });
+    //     if (text && text.text) {
+    //       console.log("setting up captions")
+    //       setCaption(text.text);
+    //     }
+    //   }
+  // };
+  // const handleUserInteraction = () => {
+  //   console.log("audioref");
+  //   if (audioRef.current) {
+  //     audioRef.current.play();
+  //     console.log("currentTime", audioRef.current?.currentTime);
+  //   }
+  // };
+
   return (
     <div
       className="flex flex-col overflow-hidden min-h-screen w-screen relative"
-      onClick={() => setDomTouched(true)}
+      onClick={() => {
+        setDomTouched(true);
+        // handleUserInteraction();
+      }}
     >
-      <THREECanvas url={url} />
-      {/* <div className="absolute bottom right-2 z-50">
-        <Model />
-        <FBXModel />
-      </div> */}
+      {/* <THREECanvas url={url} /> */}
+      {/* <ReactiveScene url={url} /> */}
+      <VideoPlayer />
       <div className="absolute top-[50%] translate-y-[-50%] right-4 flex flex-col gap-2 z-50">
         <RWebShare
           data={{
@@ -164,19 +218,35 @@ function App() {
             <Pause className="w-4 h-4 text-black" />
           )}
         </Button>
-        <Button size="icon"
+        <Button
+          size="icon"
           className="rounded-full bg-slate-100"
-          onClick={() => setUrl(prev => prev === "./farm2.jpg" ? "./Street.jpg" : "./farm2.jpg")}><Power className="w-4 h-4 text-black" /></Button>
+          onClick={() =>
+            setUrl((prev) =>
+              prev === "./farm2.jpg" ? "./Street.jpg" : "./farm2.jpg",
+            )
+          }
+        >
+          <Power className="w-4 h-4 text-black" />
+        </Button>
       </div>
       <div
+        ref={divRef}
         style={{ width: width }}
         className="absolute top-0 border-2 border-yellow-400 rounded-sm z-50"
       ></div>
+      {/* <ProgressBar currentTime={audio.currentTime} duration={audio.duration}  url={url} setUrl={setUrl}/> */}
+      {/* <Captions caption={caption} /> */}
       <p className="absolute left-[50%] translate-x-[-50%] w-[90vw] bottom-12 mb-4 text-black font-semibold text-2xl rounded-sm z-40">
         <span className="bg-yellow-600">{caption}</span>
       </p>
+      {/* <audio
+        src="./main.mp3"
+        ref={audioRef}
+        style={{ display: "none" }}
+        onTimeUpdate={handleTimeUpdate}
+      /> */}
     </div>
   );
 }
-
 export default App;
