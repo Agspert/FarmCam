@@ -1,18 +1,18 @@
 import logo from "./logo.svg";
 import "./App.css";
-import NavBar from "@/components/navbar";
+// import NavBar from "@/components/navbar";
 
-import RootLayout from "@/components/layout/root-layout";
-import THREECanvas from "@/components/viewer";
-import Model from "@//components/model";
+// import RootLayout from "@/components/layout/root-layout";
+// import THREECanvas from "@/components/viewer";
+// import Model from "@/components/model";
 import { RWebShare } from "react-web-share";
-import ReactiveScene from "@/components/reactiveScene";
+// import ReactiveScene from "@/components/reactiveScene";
 import { SendHorizonal, MapPin, Play, Pause, Power } from "lucide-react";
 import { Button, buttonVariants } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { useEffect, useRef, useState } from "react";
-import ProgressBar from "./components/ProgressBar";
-import Captions from "./components/captions";
+// import ProgressBar from "./components/ProgressBar";
+// import Captions from "./components/captions";
 import VideoPlayer from "./components/VrPlayer";
 
 function App() {
