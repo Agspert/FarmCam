@@ -97,8 +97,26 @@ export default function App() {
     console.log("clicked");
     setUrl("test1.jpg");
   };
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
+
+  const handleTimeUpdate = (e: any) => {
+    console.log("time updating", e.timeStamp);
+  };
   return (
-    <div className="App">
+    <div
+      className="App"
+      onClick={() => {
+        audioRef.current?.play();
+      }}
+    >
+      <audio
+        src="./main.mp3"
+        autoPlay
+        controls
+        ref={audioRef}
+        style={{ display: "none" }}
+        onTimeUpdate={handleTimeUpdate}
+      />
       <Canvas>
         <Suspense fallback={<Loading />}>
           <Scene url={url} callback={callback} />
