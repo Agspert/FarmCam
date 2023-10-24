@@ -139,6 +139,7 @@ function Scene({ url, callback }: { url: string; callback: any }) {
 export default function App() {
   const [url, setUrl] = useState("Street.jpg");
   const [caption, setCaption] = useState("");
+  const [width, setWidth] = useState("0px");
   // useEffect(() => {
   //     setTimeout(() => {
   //         setUrl("test1.jpg")
@@ -149,7 +150,7 @@ export default function App() {
     setUrl("test1.jpg");
   };
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
-
+  const divRef = React.useRef<HTMLDivElement | null>(null);
   const handleTimeUpdate = (e: any) => {
     const time = audioRef.current?.currentTime || 1;
     const text = dd.find((segment) => {
@@ -161,6 +162,14 @@ export default function App() {
     if (text && text.text) {
       setCaption(text.text);
     }
+
+    // progress bar
+    if (audioRef && audioRef.current?.duration) {
+      const chuncks = Math.ceil(window.innerWidth / audioRef.current.duration);
+      let width = chuncks * Math.ceil(audioRef.current.currentTime);
+      width = width > window.innerWidth ? window.innerWidth : width;
+      setWidth(`${width}px`);
+    }
   };
   return (
     <div
@@ -169,6 +178,11 @@ export default function App() {
         audioRef.current?.play();
       }}
     >
+      <div
+        ref={divRef}
+        style={{ width: width }}
+        className="absolute top-0 border-2 border-yellow-400 rounded-sm z-50"
+      ></div>
       <audio
         src="./main.mp3"
         autoPlay
