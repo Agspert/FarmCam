@@ -3,6 +3,7 @@ import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { OrbitControls, useTexture, Html } from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import AudioPlayer from "./components/audio";
+import Bars from "./components/bars";
 
 // import "./styles.css";
 // import { Mesh, BufferGeometry, NormalBufferAttributes, Material, Object3DEventMap } from "three";
@@ -97,11 +98,13 @@ export default function App() {
   const callback = () => {
     console.log("clicked");
     if (audioRef && audioRef.current) {
+      setCurrentIndex(() => 1);
       setAudioSrc("./Love-Me-Like-You-Do.mp3");
     }
     setUrl("farm2.jpg");
   };
   const [audioSrc, setAudioSrc] = useState("./main.mp3");
+  const [currentIndex, setCurrentIndex] = useState(0);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
   return (
     <div
@@ -110,7 +113,12 @@ export default function App() {
         audioRef.current?.play();
       }}
     >
-      <AudioPlayer src={audioSrc} audioRef={audioRef} />
+      <AudioPlayer
+        currentIndex={currentIndex}
+        src={audioSrc}
+        audioRef={audioRef}
+      />
+
       <Canvas>
         <Suspense fallback={<Loading />}>
           <Scene url={url} callback={callback} />

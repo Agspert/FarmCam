@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import Bars from "@/components/bars";
 
 type Props = {
   audioRef: React.MutableRefObject<HTMLAudioElement | null>;
-  // handleTimeUpdate: (e: any) => void
   src: string;
-  // divRef: React.MutableRefObject<HTMLDivElement | null>,
-  // width: string
-  // caption: string
+  currentIndex: number;
 };
 const dd = [
   {
@@ -59,8 +57,7 @@ const dd = [
   },
 ];
 
-const AudioPlayer = ({ audioRef, src }: Props) => {
-  // const audioRef = React.useRef<HTMLAudioElement | null>(null);
+const AudioPlayer = ({ audioRef, src, currentIndex }: Props) => {
   const [caption, setCaption] = useState("");
   const [width, setWidth] = useState("0px");
   const divRef = React.useRef<HTMLDivElement | null>(null);
@@ -78,15 +75,21 @@ const AudioPlayer = ({ audioRef, src }: Props) => {
 
     // progress bar
     if (audioRef && audioRef.current?.duration) {
-      const chuncks = Math.ceil(window.innerWidth / audioRef.current.duration);
+      // calculating bar width
+      // gap-2 * (bars - 1) px-4 border-2 * (bars * 2)
+      // 16 * (3-1) + (16px * 2)
+      // console.log(window.innerWidth , Math.floor((window.innerWidth - 64)/ 3))
+      const w = Math.floor((window.innerWidth - 64) / 3);
+      const chuncks = Math.ceil(w / audioRef.current.duration);
       let width = chuncks * Math.ceil(audioRef.current.currentTime);
-      width = width > window.innerWidth ? window.innerWidth : width;
+      width = width > w ? w : width;
       setWidth(`${width}px`);
     }
   };
 
   return (
     <>
+      <Bars width={width} currentIndex={currentIndex} />
       <audio
         src={src}
         autoPlay
@@ -95,11 +98,6 @@ const AudioPlayer = ({ audioRef, src }: Props) => {
         style={{ display: "none" }}
         onTimeUpdate={handleTimeUpdate}
       />
-      <div
-        ref={divRef}
-        style={{ width: width }}
-        className="absolute top-0 border-2 border-yellow-400 rounded-sm z-50"
-      ></div>
       <p className="absolute left-[50%] translate-x-[-50%] w-[90vw] bottom-12 mb-4 text-black font-semibold text-2xl rounded-sm z-40">
         <span className="bg-yellow-600">{caption}</span>
       </p>
