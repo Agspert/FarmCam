@@ -97,17 +97,20 @@ export default function App() {
   // }, [])
   const callback = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (audioRef && audioRef.current) {
-      if (e.clientX < Math.floor(window.innerWidth / 2) && currentIndex != 0) {
-        setCurrentIndex(() => 0);
-        setAudioSrc("./main.mp3");
+      if (e.clientX < Math.floor(window.innerWidth / 2)) {
+        if (currentIndex !== 0) {
+          setCurrentIndex(() => 0);
+          setAudioSrc("./main.mp3");
+          setUrl("Street.jpg");
+        }
       } else {
         if (currentIndex !== 1) {
           setCurrentIndex(() => 1);
           setAudioSrc("./Love-Me-Like-You-Do.mp3");
+          setUrl("farm2.jpg");
         }
       }
     }
-    setUrl("farm2.jpg");
   };
   const [audioSrc, setAudioSrc] = useState("./main.mp3");
   const [currentIndex, setCurrentIndex] = useState(0);
