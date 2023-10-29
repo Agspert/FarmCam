@@ -4,7 +4,10 @@ import Bars from "@/components/bars";
 type Props = {
   audioRef: React.MutableRefObject<HTMLAudioElement | null>;
   src: string;
+  setAudioSrc: React.Dispatch<React.SetStateAction<string>>;
   currentIndex: number;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  setUrl: React.Dispatch<React.SetStateAction<string>>;
 };
 const dd = [
   {
@@ -57,7 +60,14 @@ const dd = [
   },
 ];
 
-const AudioPlayer = ({ audioRef, src, currentIndex }: Props) => {
+const AudioPlayer = ({
+  audioRef,
+  src,
+  setAudioSrc,
+  currentIndex,
+  setCurrentIndex,
+  setUrl,
+}: Props) => {
   const [caption, setCaption] = useState("");
   const [width, setWidth] = useState("0px");
   const divRef = React.useRef<HTMLDivElement | null>(null);
@@ -87,6 +97,15 @@ const AudioPlayer = ({ audioRef, src, currentIndex }: Props) => {
     }
   };
 
+  const handleEnd = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+    console.log("audio ended", e);
+    if (src === "./main.mp3") {
+      setUrl("farm2.jpg");
+      setAudioSrc("./Love-Me-Like-You-Do.mp3");
+      setCurrentIndex(() => 1);
+    }
+  };
+
   return (
     <>
       <Bars width={width} currentIndex={currentIndex} />
@@ -97,6 +116,7 @@ const AudioPlayer = ({ audioRef, src, currentIndex }: Props) => {
         ref={audioRef}
         style={{ display: "none" }}
         onTimeUpdate={handleTimeUpdate}
+        onEnded={(e) => handleEnd(e)}
       />
       <p className="absolute left-[50%] translate-x-[-50%] w-[90vw] bottom-12 mb-4 text-black font-semibold text-2xl rounded-sm z-40">
         <span className="bg-yellow-600">{caption}</span>

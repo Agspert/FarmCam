@@ -125,7 +125,10 @@ export default function App() {
       <AudioPlayer
         currentIndex={currentIndex}
         src={audioSrc}
+        setAudioSrc={setAudioSrc}
+        setCurrentIndex={setCurrentIndex}
         audioRef={audioRef}
+        setUrl={setUrl}
       />
 
       <Canvas>
