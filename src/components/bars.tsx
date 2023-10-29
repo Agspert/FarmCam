@@ -14,14 +14,14 @@ const bars = [
     completed: true,
     isCurrent: false,
   },
-  {
-    completed: false,
-    isCurrent: false,
-  },
+  // {
+  //   completed: false,
+  //   isCurrent: false,
+  // },
 ];
-const Bars = ({ currentIndex, width = "20px" }: Props) => {
+const Bars = ({ currentIndex, width }: Props) => {
   return (
-    <div className="absolute grid grid-cols-3 gap-2 h-4 top-4 px-4  w-screen">
+    <div className="absolute grid grid-cols-2 gap-2 h-4 top-4 px-4  w-screen">
       {bars.map((bar, index) => {
         return (
           <div

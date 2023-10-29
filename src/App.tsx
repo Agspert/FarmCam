@@ -95,11 +95,17 @@ export default function App() {
   //         setUrl("test1.jpg")
   //     }, 10000)
   // }, [])
-  const callback = () => {
-    console.log("clicked");
+  const callback = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (audioRef && audioRef.current) {
-      setCurrentIndex(() => 1);
-      setAudioSrc("./Love-Me-Like-You-Do.mp3");
+      if (e.clientX < Math.floor(window.innerWidth / 2) && currentIndex != 0) {
+        setCurrentIndex(() => 0);
+        setAudioSrc("./main.mp3");
+      } else {
+        if (currentIndex !== 1) {
+          setCurrentIndex(() => 1);
+          setAudioSrc("./Love-Me-Like-You-Do.mp3");
+        }
+      }
     }
     setUrl("farm2.jpg");
   };

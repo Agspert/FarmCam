@@ -76,10 +76,10 @@ const AudioPlayer = ({ audioRef, src, currentIndex }: Props) => {
     // progress bar
     if (audioRef && audioRef.current?.duration) {
       // calculating bar width
-      // gap-2 * (bars - 1) px-4 border-2 * (bars * 2)
+      // ("gap-2" * (bars - 1)) "px-4" ("border-2" * (bars * 2))
       // 16 * (3-1) + (16px * 2)
       // console.log(window.innerWidth , Math.floor((window.innerWidth - 64)/ 3))
-      const w = Math.floor((window.innerWidth - 64) / 3);
+      const w = Math.floor((window.innerWidth - 64) / 2);
       const chuncks = Math.ceil(w / audioRef.current.duration);
       let width = chuncks * Math.ceil(audioRef.current.currentTime);
       width = width > w ? w : width;
