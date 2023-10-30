@@ -110,8 +110,10 @@ export default function App() {
           setUrl("farm2.jpg");
         }
       }
+      setWidth("0px");
     }
   };
+  const [width, setWidth] = useState("0px");
   const [audioSrc, setAudioSrc] = useState("./main.mp3");
   const [currentIndex, setCurrentIndex] = useState(0);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
@@ -123,6 +125,8 @@ export default function App() {
       }}
     >
       <AudioPlayer
+        width={width}
+        setWidth={setWidth}
         currentIndex={currentIndex}
         src={audioSrc}
         setAudioSrc={setAudioSrc}
