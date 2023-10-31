@@ -36,32 +36,34 @@ const dd = [
     endTime: 26.55,
     text: "Connecting with consumers was a challenge until we embraced agspeak's digital technologies.",
   },
+];
+
+const cc = [
   {
-    id: 5,
-    startTime: 26.55,
-    endTime: 31.64,
+    id: 1,
+    startTime: 0,
+    endTime: 5.09,
     text: "Now, we are gaining more visibility, thus reaching end consumers efficiently.",
   },
   {
-    id: 6,
-    startTime: 31.64,
-    endTime: 39.34,
+    id: 2,
+    startTime: 5.09,
+    endTime: 12.79,
     text: "By the way, you can tap on the share button to share my story with your friends, or use the location button to find my farm on the map.",
   },
   {
-    id: 7,
-    startTime: 39.34,
-    endTime: 44.36,
+    id: 3,
+    startTime: 12.79,
+    endTime: 17.81,
     text: "Do visit my farm to enjoy a day full of nature and fresh food from our ethnic kitchen.",
   },
   {
-    id: 8,
-    startTime: 44.36,
-    endTime: 48.73,
+    id: 4,
+    startTime: 17.81,
+    endTime: 22.18,
     text: "Meanwhile, enjoy your tea grown right here at my farm!",
   },
 ];
-
 const AudioPlayer = ({
   audioRef,
   src,
@@ -77,11 +79,20 @@ const AudioPlayer = ({
   const divRef = React.useRef<HTMLDivElement | null>(null);
   const handleTimeUpdate = (e: any) => {
     const time = audioRef.current?.currentTime || 1;
-    const text = dd.find((segment) => {
-      if (segment.startTime < time && segment.endTime >= time) {
-        return segment;
-      }
-    });
+    let text: any = "";
+    if (src === "./main_1.mp3") {
+      text = dd.find((segment) => {
+        if (segment.startTime < time && segment.endTime >= time) {
+          return segment;
+        }
+      });
+    } else {
+      text = cc.find((segment) => {
+        if (segment.startTime < time && segment.endTime >= time) {
+          return segment;
+        }
+      });
+    }
 
     if (text && text.text) {
       setCaption(text.text);
@@ -103,10 +114,10 @@ const AudioPlayer = ({
 
   const handleEnd = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
     console.log("audio ended", e);
-    if (src === "./main.mp3") {
+    if (src === "./main_1.mp3") {
       setWidth("0px");
       setUrl("farm2.jpg");
-      setAudioSrc("./Love-Me-Like-You-Do.mp3");
+      setAudioSrc("./main_2.mp3");
       setCurrentIndex(() => 1);
     }
   };

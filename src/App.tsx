@@ -100,13 +100,13 @@ export default function App() {
       if (e.clientX < Math.floor(window.innerWidth / 2)) {
         if (currentIndex !== 0) {
           setCurrentIndex(() => 0);
-          setAudioSrc("./main.mp3");
+          setAudioSrc("./main_1.mp3");
           setUrl("Street.jpg");
         }
       } else {
         if (currentIndex !== 1) {
           setCurrentIndex(() => 1);
-          setAudioSrc("./Love-Me-Like-You-Do.mp3");
+          setAudioSrc("./main_2.mp3");
           setUrl("farm2.jpg");
         }
       }
@@ -114,7 +114,7 @@ export default function App() {
     }
   };
   const [width, setWidth] = useState("0px");
-  const [audioSrc, setAudioSrc] = useState("./main.mp3");
+  const [audioSrc, setAudioSrc] = useState("./main_1.mp3");
   const [currentIndex, setCurrentIndex] = useState(0);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
   return (
